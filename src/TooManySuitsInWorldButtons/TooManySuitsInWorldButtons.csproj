@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <AssemblyName>TooManySuitsInWorldButtons</AssemblyName>
+        <Description>A mod which adds in world buttons to TooManySuits allowing it to work in VR</Description>
+        <Version>1.0.0</Version>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <LangVersion>latest</LangVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" />
+        <PackageReference Include="BepInEx.Core" Version="5.*" />
+        <PackageReference Include="BepInEx.PluginInfoProps" Version="1.*" />
+        <PackageReference Include="Evaisa.LethalLib" Version="0.14.2" />
+        <PackageReference Include="LethalCompany.LC-API" Version="3.4.5" />
+		<PackageReference Include="UnityEngine.Modules" Version="2022.3.9" IncludeAssets="compile" />
+    </ItemGroup>
+	
+    <ItemGroup>
+		<Reference Include="..\libs\Assembly-CSharp.dll" />
+		<Reference Include="..\libs\LethalConfig.dll" />
+		<Reference Include="..\libs\Unity.Collections.dll" />
+		<Reference Include="..\libs\Unity.Netcode.Runtime.dll" />
+		<Reference Include="..\libs\TooManySuits.dll" />
+		<Reference Include="..\libs\Unity.InputSystem.dll" />
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
+        <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="all" />
+    </ItemGroup>
+
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Copy SourceFiles="$(SolutionDir)TooManySuitsInWorldButtons\bin\Release\netstandard2.1\TooManySuitsInWorldButtons.dll" DestinationFiles="$(SolutionDir)out\TooManySuitsInWorldButtons.dll" />
+		<Copy SourceFiles="$(SolutionDir)TooManySuitsInWorldButtons\manifest.json" DestinationFiles="$(SolutionDir)out\manifest.json" />
+		
+		<ItemGroup>
+			<_CopyItems Include="$(SolutionDir)out\*.*" />
+		</ItemGroup>
+		<Copy SourceFiles="@(_CopyItems)" DestinationFolder="C:\Users\RT0405\AppData\Roaming\r2modmanPlus-local\LethalCompany\profiles\Test1\BepInEx\plugins\TooManySuitsInWorldButtons" />
+	</Target>
+    
+</Project>

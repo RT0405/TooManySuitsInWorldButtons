@@ -1,0 +1,10 @@
+{
+  "name": "TooManySuitsInWorldButtons",
+  "version_number": "1.0.0",
+  "website_url": "",
+  "description": "A mod which adds in world buttons to TooManySuits allowing it to work in VR",
+  "dependencies": [
+    "Verity-TooManySuits-1.0.5",
+    "AinaVT-LethalConfig-1.3.4",
+  ]
+}

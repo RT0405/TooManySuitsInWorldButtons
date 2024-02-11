@@ -1,2 +1,1 @@
-Concept Art by TheModestPidgeon
-Code by RT0405
+A simple mod which adds in world buttons to the mod TooManySuits, allowing it to also be used in VR

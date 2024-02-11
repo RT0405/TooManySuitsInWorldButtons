@@ -20,7 +20,6 @@
 	
     <ItemGroup>
 		<Reference Include="..\libs\Assembly-CSharp.dll" />
-		<Reference Include="..\libs\LethalConfig.dll" />
 		<Reference Include="..\libs\Unity.Collections.dll" />
 		<Reference Include="..\libs\Unity.Netcode.Runtime.dll" />
 		<Reference Include="..\libs\TooManySuits.dll" />
@@ -32,13 +31,13 @@
     </ItemGroup>
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-		<Copy SourceFiles="$(SolutionDir)TooManySuitsInWorldButtons\bin\Release\netstandard2.1\TooManySuitsInWorldButtons.dll" DestinationFiles="$(SolutionDir)out\TooManySuitsInWorldButtons.dll" />
+		<Copy SourceFiles="$(SolutionDir)TooManySuitsInWorldButtons\bin\$(Configuration)\netstandard2.1\TooManySuitsInWorldButtons.dll" DestinationFiles="$(SolutionDir)out\TooManySuitsInWorldButtons.dll" />
 		<Copy SourceFiles="$(SolutionDir)TooManySuitsInWorldButtons\manifest.json" DestinationFiles="$(SolutionDir)out\manifest.json" />
 		
 		<ItemGroup>
-			<_CopyItems Include="$(SolutionDir)out\*.*" />
+			<_CopyItems Include="$(SolutionDir)out\*" />
 		</ItemGroup>
-		<Copy SourceFiles="@(_CopyItems)" DestinationFolder="C:\Users\RT0405\AppData\Roaming\r2modmanPlus-local\LethalCompany\profiles\Test1\BepInEx\plugins\TooManySuitsInWorldButtons" />
+		<Copy SourceFiles="@(_CopyItems)" DestinationFolder="D:\Modding\R2Modman\R2Modman_Storage\LethalCompany\profiles\TooManySuitsInWorldButtonsTest\BepInEx\plugins\TooManySuitsInWorldButtons" />
 	</Target>
     
 </Project>

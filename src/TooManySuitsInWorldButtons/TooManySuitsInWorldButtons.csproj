@@ -4,7 +4,7 @@
         <TargetFramework>netstandard2.1</TargetFramework>
         <AssemblyName>TooManySuitsInWorldButtons</AssemblyName>
         <Description>A mod which adds in world buttons to TooManySuits allowing it to work in VR</Description>
-        <Version>1.0.0</Version>
+        <Version>1.0.1</Version>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <LangVersion>latest</LangVersion>
     </PropertyGroup>
@@ -33,11 +33,6 @@
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
 		<Copy SourceFiles="$(SolutionDir)TooManySuitsInWorldButtons\bin\$(Configuration)\netstandard2.1\TooManySuitsInWorldButtons.dll" DestinationFiles="$(SolutionDir)out\TooManySuitsInWorldButtons.dll" />
 		<Copy SourceFiles="$(SolutionDir)TooManySuitsInWorldButtons\manifest.json" DestinationFiles="$(SolutionDir)out\manifest.json" />
-		
-		<ItemGroup>
-			<_CopyItems Include="$(SolutionDir)out\*" />
-		</ItemGroup>
-		<Copy SourceFiles="@(_CopyItems)" DestinationFolder="D:\Modding\R2Modman\R2Modman_Storage\LethalCompany\profiles\TooManySuitsInWorldButtonsTest\BepInEx\plugins\TooManySuitsInWorldButtons" />
 	</Target>
     
 </Project>

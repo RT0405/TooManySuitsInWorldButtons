@@ -11,18 +11,15 @@ public class TooManySuitsInWorldButtons : BaseUnityPlugin
 {
     public const string PLUGIN_GUID = "RT0405.TooManySuitsInWorldButtons";
     public const string PLUGIN_NAME = "TooManySuitsInWorldButtons";
-    public const string PLUGIN_VERSION = "1.0.0";
+    public const string PLUGIN_VERSION = "1.0.1";
 
-    public bool EnableButtonsInNonVR;
     private static Transform leftButton;
     private static Transform rightButton;
-    private static Sprite emptySprite;
+    private static readonly Sprite emptySprite = Sprite.Create(new Rect(0, 0, 1, 1), Vector2.zero, 1);
 
     public void Awake()
     {
         Logger.LogInfo($"Plugin {PLUGIN_GUID} loading...");
-
-        emptySprite = Sprite.Create(new Rect(0, 0, 1, 1), Vector2.zero, 1);
 
         Harmony.CreateAndPatchAll(typeof(TooManySuitsInWorldButtons));
 
@@ -45,7 +42,21 @@ public class TooManySuitsInWorldButtons : BaseUnityPlugin
             const float offset = 1;
             leftButton.transform.SetPositionAndRotation(position + rotation * new Vector3(-offset, 0, 0), rotation);
             rightButton.transform.SetPositionAndRotation(position + rotation * new Vector3(offset, 0, 0), rotation);
+
+            bool active = suitPanelTransform.gameObject.activeInHierarchy;
+            leftButton.gameObject.SetActive(active);
+            rightButton.gameObject.SetActive(active);
         }
+    }
+    [HarmonyPatch(typeof(TooManySuits.PluginLoader.Hooks), nameof(TooManySuits.PluginLoader.Hooks.HookStartGame))]
+    [HarmonyPostfix]
+    private static void HookStartGame()
+    {
+        if(leftButton != null)
+            Destroy(leftButton);
+        if(rightButton != null)
+            Destroy(rightButton);
+        leftButton = rightButton = null;
     }
     private static InteractTrigger CreateTrigger(bool isRight, TooManySuits.PluginLoader plugin)
     {

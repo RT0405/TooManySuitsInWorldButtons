@@ -11,8 +11,10 @@ public class TooManySuitsInWorldButtons : BaseUnityPlugin
 {
     public const string PLUGIN_GUID = "RT0405.TooManySuitsInWorldButtons";
     public const string PLUGIN_NAME = "TooManySuitsInWorldButtons";
-    public const string PLUGIN_VERSION = "1.0.1";
+    public const string PLUGIN_VERSION = "1.0.2";
 
+    private static Transform suitPanelTransform;
+    private static bool recreateButtons;
     private static Transform leftButton;
     private static Transform rightButton;
     private static readonly Sprite emptySprite = Sprite.Create(new Rect(0, 0, 1, 1), Vector2.zero, 1);
@@ -29,17 +31,16 @@ public class TooManySuitsInWorldButtons : BaseUnityPlugin
     [HarmonyPostfix]
     public static void Update(TooManySuits.PluginLoader __instance)
     {
-        if (leftButton == null && TooManySuits.PluginLoader.Hooks.SuitPanel != null)
+        if(recreateButtons)
         {
             leftButton = CreateTrigger(false, __instance).transform;
             rightButton = CreateTrigger(true, __instance).transform;
         }
-        if (leftButton != null && TooManySuits.PluginLoader.Hooks.SuitPanel != null)
+        if(suitPanelTransform != null && leftButton != null)
         {
-            Transform suitPanelTransform = TooManySuits.PluginLoader.Hooks.SuitPanel.transform;
             Vector3 position = suitPanelTransform.position;
             Quaternion rotation = suitPanelTransform.rotation;
-            const float offset = 1;
+            const float offset = .9f;
             leftButton.transform.SetPositionAndRotation(position + rotation * new Vector3(-offset, 0, 0), rotation);
             rightButton.transform.SetPositionAndRotation(position + rotation * new Vector3(offset, 0, 0), rotation);
 
@@ -57,6 +58,8 @@ public class TooManySuitsInWorldButtons : BaseUnityPlugin
         if(rightButton != null)
             Destroy(rightButton);
         leftButton = rightButton = null;
+        suitPanelTransform = TooManySuits.PluginLoader.Hooks.SuitPanel.GetComponentInChildren<Canvas>().transform;
+        recreateButtons = true;
     }
     private static InteractTrigger CreateTrigger(bool isRight, TooManySuits.PluginLoader plugin)
     {

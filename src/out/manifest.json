@@ -1,8 +1,8 @@
 {
   "name": "TooManySuitsInWorldButtons",
-  "version_number": "1.0.2",
+  "version_number": "1.0.3",
   "website_url": "https://github.com/RT0405/TooManySuitsInWorldButtons",
-  "description": "A mod which adds in world buttons to TooManySuits allowing it to work in VR",
+  "description": "A mod which adds in world buttons to TooManySuits allowing it to work in VR or on desktop without keybinds",
   "dependencies": [
     "Verity-TooManySuits-1.0.7"
   ]

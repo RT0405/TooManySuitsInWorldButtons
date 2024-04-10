@@ -33,6 +33,7 @@ public class TooManySuitsInWorldButtons : BaseUnityPlugin
     {
         if(recreateButtons)
         {
+            recreateButtons = false;
             leftButton = CreateTrigger(false, __instance).transform;
             rightButton = CreateTrigger(true, __instance).transform;
         }
